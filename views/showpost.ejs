@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="stylesheet" type="text/css" href="/css/showPost.css">
+   <title>ALL POSTS</title>
+</head>
+<body>
+   <main>
+      <a href="/blog" class="nav-btn">Home</a>
+      <div class="post-main-container">
+         <h1>All Posts</h1>
+         <%posts.forEach((post) => {%>
+            <div class="post-container">
+               <a href="/post/showpost/<%=post.id%>"><h2><%=post.title%></h2></a>
+               <p><%=post.time.toDateString()%> <%=post.time.getHours()%>:<%=post.time.getMinutes()%></p>
+               <p class="post-content"><%=post.content%></p>
+            </div>
+         <%})%>
+      </div>
+   </main>
+</body>
+</html>

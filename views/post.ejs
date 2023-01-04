@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="stylesheet" type="text/css" href="/css/post.css">
+   <title>Document</title>
+</head>
+<body>
+   <main>
+      <a href="/blog" class="nav-btn">Home</a>
+      <form class="form" id="post-form" action="/post" method="post">
+         <h1>Make A Post</h1>
+         <input class="text-input" type="text" name="title" placeholder="Title">
+         <div class="category-container">
+            <button class="btn" id="category-btn" type="button">New Category</button>
+            <input class="text-input hidden" id="new-category" type="text" placeholder="Category">
+            <select class="select" id="select-category">
+               <% categories.forEach(category => { %>
+                  <option value="category.category"><%= category.category %></option>
+               <% }) %>
+            </select>
+         </div>
+         <textarea class="textarea" name="content" placeholder="Post something..."></textarea>
+         <button class="btn submit-btn" id="submit-btn" type="button">SEND</button>
+      </form>
+      <script type="text/javascript" src="/js/post.js"></script>
+   </main>
+</body>
+</html>

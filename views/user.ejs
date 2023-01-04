@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <title>User</title>
+</head>
+<body>
+   <main>
+      <a href="/blog" class="nav-btn">Home</a>
+      <h1>Posts</h1>
+      <% if(posts.length) { %>
+         <% posts.forEach(post => { %>
+            <a href="/post/showpost/<%= post.id%>"><h1><%= post.title%></h1></a>
+            <a href="/user/post/<%= post.id%>/update"><button>UPDATE</button></a>
+            <a href="/user/post/<%= post.id%>/delete"><button>DELETE</button></a>
+         <% }) %>
+      <% } else { %>
+         <h3>You have no posts.</h3>
+      <% } %>
+      
+      <h1>Complains</h1>
+      <% if(complains.length) { %>
+         <% complains.forEach(complain => { %>
+            <h2><%=complain.title%></h2>
+            <a href="/user/complain/<%= complain.id%>/update"><button>UPDATE</button></a>
+            <a href="/user/complain/<%= complain.id%>/delete"><button>DELETE</button></a>
+            <br>
+            <h3>FeedBack</h3>
+            <% if(complain.admin_feedback) { %>
+               <p><%= complain.admin_feedback %></p>
+            <% } else { %>
+               <p>Pending</p>
+            <% } %>
+            <br><br>
+         <% }) %>
+      <% } else { %>
+         <h3>You have no Reports.</h3>
+      <% } %>
+   </main>
+</body>
+</html>

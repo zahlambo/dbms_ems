@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<style>
+    td.green {
+        color: green;
+    }
+
+    rd.red {
+        color: red;
+    }
+</style>
+
+<body>
+    <a href="/logOut">LogOut</a></br>
+    <% if( type=="admin" ) { %>
+
+        <h2>Admin page!</h2>
+        <a href="/addTask">Add Task</a> <br>
+        <a href="/seeAllEmployees">All Employees</a> <br>
+        <a href="/seeAllReports">See All Reports</a> <br>
+        <a href="/getTasksall">See All Tasks</a> <br>
+        <a href="/register">Register</a> <br><br> <br> <br>
+
+
+
+
+        <%if(locals.employees){%>
+            <form action="/seeAllEmployees" method="get">
+                <input type="text" name="searchTerm" id="" placeholder="search by name...">
+                <input type="submit" value="Search 🔍">
+            </form>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Points</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+
+                    </tr>
+                </thead>
+                <% employees.forEach(el=> {
+                    %>
+                    <tr>
+                        <td>
+                            <%=el.id%>
+                        </td>
+                        <td>
+                            <%=el.name%>
+                        </td>
+                        <td>
+                            <%=el.type%>
+                        </td>
+                        <td>
+                            <%=el.phone%>
+                        </td>
+                        <td>
+                            <%=el.points%>
+                        </td>
+                        <td>
+                            <a href="/updateEmployee?id=<%=el.id%>">Update</a>
+                        </td>
+                        <td>
+                            <a href="/deleteEmployee?id=<%=el.id%>">Delete</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+                        <%}%>
+            </table>
+
+            <%if(locals.todos){%>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Title & Description</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">Submission Time</th>
+                            <th scope="col">Project Point</th>
+                            <th scope="col">Assigned to</th>
+
+                        </tr>
+                    </thead>
+                    <% todos.forEach(el=> {
+                        %>
+                        <tr>
+                            <td>
+                                <%=el.tid%>
+                            </td>
+                            <td>
+                                <h4>
+                                    <%=el.title%>
+                                </h4>
+                                <p>
+                                    <%= el.description %>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <%= el.time.toDateString()%>
+                                        <%=el.time.getHours()%>:<%=el.time.getMinutes() %>
+                                </p>
+                            </td>
+                            <!-- <%=el.title%> -->
+                            <td>
+                                <p>
+                                    <%= el.deadline.toDateString()%>
+                                        <%=el.deadline.getHours()%>:<%=el.deadline.getMinutes() %>
+                                </p>
+                            </td>
+                            <td>
+                                <%=el.submission_time%>
+                                    <p>
+                                        <%= // el.submission_time.toDateString()%>
+                                            <%= //el.submission_time.getHours()%>:<%= //el.submission_time.getMinutes()
+                                                    %>
+                                    </p>
+                            </td>
+                            <td>
+                                <%=el.project_point%>
+                            </td>
+                            <td>
+                                <p>Name:<%=el.name%>
+                                </p>
+                                <p>e_id : <%=el.id%>
+                                </p>
+                            </td>
+                        </tr>
+                        <% }) %>
+                            <%}%>
+                </table>
+
+
+                <%if(locals.reports){%>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Title & Description</th>
+                                <th scope="col">Complained By</th>
+                                <th scope="col">Complainee</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Feedback From Complainee</th>
+                                <th scope="col">Give feedback to complainer</th>
+                                
+
+
+                            </tr>
+                        </thead>
+                        <% reports.forEach(el=> {
+                            %>
+                            <tr>
+                                <td>
+                                    <%=el.id%>
+                                </td>
+                                <td>
+                                    <h4>
+                                        <%=el.title%>
+                                    </h4> <br>
+                                    <%=el.description%>
+                                </td>
+                                <td>
+                                    <%=el.name%>
+                                </td>
+                                <td>
+                                    <%=el.name2%>
+                                </td>
+                                <td>
+                                    <p>
+                                        <%= el.time.toDateString()%>
+                                            <%=el.time.getHours()%>:<%=el.time.getMinutes() %>
+                                    </p>
+                                </td>
+                                <td>
+                                    <% if( el.feedback_from_reported ){%>
+                                        <p>
+                                            <%= el.feedback_from_reported %>
+                                        </p>
+                                        <%} else {%>
+                                            <p>No feedback given.</p>
+                                            <%} %>
+                                </td>
+                                <td>
+
+                                    <% if( el.admin_feedback ){%>
+                                        <p>
+                                            <%= el.admin_feedback%>
+                                        </p>
+                                        <%} else {%>
+                                            <form action="/setFeedbackadmin?id=<%= el.id %>" method="post">
+                                                <textarea name="feedback" id="" cols="30" rows="3"
+                                                    placeholder="give your feedback..."></textarea>
+                                                <button>Go!</button>
+                                            </form>
+                                            <%} %>
+
+
+
+                                </td>
+                            </tr>
+                            <% }) %>
+                                <%}%>
+                    </table>
+                    <%} else { %>
+                        <h4>Employee Page</h4>
+                        <a href="/blog">blog</a> <br>
+                        <a href="/seeMyReports">Complains</a> <br>
+                        <a href="/addTask">Add Tasks</a> <br>
+                        <%if(locals.reports){%>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">Title & Description</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Feedback to admin</th>
+
+                                        <!-- <th scope="col">Complained By</th> -->
+                                        <!-- <th scope="col">Complained To</th> -->
+
+                                    </tr>
+                                </thead>
+                                <% reports.forEach(el=> {
+                                    %>
+                                    <tr>
+                                        <td>
+                                            <%=el.id%>
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                <%=el.title%>
+                                            </h4> <br>
+                                            <%=el.description%>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <%= el.time.toDateString()%>
+                                                    <%=el.time.getHours()%>:<%=el.time.getMinutes() %>
+                                            </p>
+                                        </td>
+                                        <td>
+
+                                            <% if( el.feedback_from_reported ){%>
+                                                <p>
+                                                    <%= el.feedback_from_reported %>
+                                                </p>
+                                                <%} else {%>
+                                                    <form action="/setFeedback?id=<%= el.id %>" method="post">
+                                                        <textarea name="feedback" id="" cols="30" rows="3"
+                                                            placeholder="give your defense..."></textarea>
+                                                        <button>Go!</button>
+                                                    </form>
+                                                    <%} %>
+
+
+
+                                        </td>
+
+                                    </tr>
+                                    <% }) %>
+                                        <%}%>
+                            </table>
+                            <% if (locals.todos){ if(todos.length===0) {%>
+                                <p>No tasks from admin!</p>
+                                <%}else {%>
+                                    <table class="table table-striped table-dark">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Tasks</th>
+                                                <th scope="col">Point</th>
+                                                <th scope="col">Assign time</th>
+                                                <th scope="col">Deadline</th>
+                                                <th scope="col">Submit</th>
+                                                <th scope="col">Completed?</th>
+                                                <th scope="col">Assigned By</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <%todos.forEach(el=> {%>
+                                            <tr>
+                                                <td>
+                                                    <%= el.id %>
+                                                </td>
+                                                <td>
+                                                    <h4>
+                                                        <%=el.title%>
+                                                    </h4>
+                                                    <p>
+                                                        <%=el.description%>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <%=el.project_point %>
+                                                </td>
+                                                <td>
+                                                    <%=el.time %>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <%= el.deadline.toDateString()%>
+                                                            <%=el.deadline.getHours()%>:<%=el.deadline.getMinutes() %>
+                                                    </p>
+                                                </td>
+                                                <td>
+
+                                                    <% if( el.submission_time ){%>
+                                                        <button disabled="disabled">Completed </button>
+                                                        <%} else {%>
+                                                            <a
+                                                                href="/submitTask?id=<%= el.id %>&point=<%= el.project_point %>">Submit
+                                                                ✅</a>
+                                                            <%} %>
+                                                </td>
+                                                <td class="<%= el.submission_time ? " green" : "res" %>">
+                                                    <%= el.submission_time ? "YES" : "NO" %>
+                                                </td>
+                                                <td>ADMIN</td>
+                                            </tr>
+
+
+
+
+
+
+                                            <%}) } } else {%>
+                                                <a href="/getTasks">See All Tasks</a>
+                                                <%} }%>
+
+                                                    <% if (locals.task_by_others){ if(task_by_others.length===0) {%>
+                                                        <p>No tasks from other employees!</p>
+                                                        <%}else {%>
+                                                            <table class="table table-striped table-dark">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Tasks</th>
+                                                                        <th scope="col">Point</th>
+                                                                        <th scope="col">Assign time</th>
+                                                                        <th scope="col">Deadline</th>
+                                                                        <th scope="col">Submit</th>
+                                                                        <th scope="col">Completed?</th>
+                                                                        <th scope="col">Assigned By</th>
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <%task_by_others.forEach(el=> {%>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%= el.id %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h4>
+                                                                                <%=el.title%>
+                                                                            </h4>
+                                                                            <p>
+                                                                                <%=el.description%>
+                                                                            </p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=el.points %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=el.time %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p>
+                                                                                <%= el.deadline.toDateString()%>
+                                                                                    <%=el.deadline.getHours()%>:
+                                                                                        <%=el.deadline.getMinutes() %>
+                                                                            </p>
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <% if( el.submission_time ){%>
+                                                                                <button disabled="disabled">Completed
+                                                                                </button>
+                                                                                <%} else {%>
+                                                                                    <a
+                                                                                        href="/submitTaskByOthers?id=<%= el.id %>&point=<%= el.points %>">Submit
+                                                                                        ✅</a>
+                                                                                    <%} %>
+                                                                        </td>
+                                                                        <td class="<%= el.submission_time ? " green"
+                                                                            : "res" %>">
+                                                                            <%= el.submission_time ? "YES" : "NO" %>
+                                                                        </td>
+                                                                        <td>Name: <%= el.name %> <br>
+                                                                                e_id : <%= el.employeesid %>
+                                                                        </td>
+                                                                    </tr>
+
+
+
+
+
+
+                                                                    <%}) } }%>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+main {
+   margin-top: 2rem;
+}
+:root {
+   --fs: 1.2em;
+   --width: 80vw;
+   --max-width: 800px;
+}
+
+.text-input {
+   box-sizing: border-box;
+   font-size: var(--fs);
+   width: var(--width);
+   max-width: var(--max-width);
+   padding: 0.5em;
+}
+
+.textarea {
+   box-sizing: border-box;
+   font-size: var(--fs);
+   padding: 0.5em;
+   width: var(--width);
+   max-width: var(--max-width);
+   height: 20em;
+   resize: none;
+}
+
+.select {
+   width: var(--width);
+   max-width: var(--max-width);
+   font-size: var(--fs);
+   padding: 0.5em;
+}
+
+.submit-btn {
+   width: var(--width);
+   max-width: var(--max-width);
+}
+
+.category-container {
+   width: var(--width);
+   max-width: var(--max-width);
+}

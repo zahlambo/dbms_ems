@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="/css/style.css">
+   <link rel="stylesheet" type="text/css" href="/css/post.css">
+   <title>Update a post</title>
+</head>
+<body>
+   <main>
+      <a href="/blog" class="nav-btn">Home</a>
+      <form class="form" action="/user/post/<%=postId%>/update" method="post">
+         <h1>Update the Post</h1>
+         <input class="text-input" type="text" name="title" placeholder="Title">
+         <select class="select" name="category">
+            <option value="1">HTML</option>
+            <option value="2">CSS</option>
+            <option value="3">JS</option>
+         </select>
+         <textarea class="textarea" name="content" placeholder="Post something..."></textarea>
+         <button class="btn submit-btn">SEND</button>
+      </form>
+   </main>
+</body>
+</html>
